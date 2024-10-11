@@ -5,6 +5,7 @@ import ManageUsers from "../manageUsers/ManageUsers";
 import ManageScholarships from "../becas/ManageScholarships";
 import ManageCourses from "../CrearCurso/ManageCourses";
 import ManageAdmin from "../manageAdmin/ManageAdmin";
+import ManageTeacher from "../manageTeacher/ManageTeacher";
 import Graphics from "../graphics/Graphics";
 
 export default function Admin() {
@@ -25,21 +26,24 @@ export default function Admin() {
             <ManageUsers />
           </div>
         );
-
       case "Becas":
         return (
           <div>
             <ManageScholarships />
           </div>
         );
-
       case "Graficos":
         return (
           <div>
             <Graphics />
           </div>
         );
-
+      case "GestionDocentes":
+        return (
+          <div>
+            <ManageTeacher />
+          </div>
+          );  
       case "CrearCursos":
         return (
           <div>

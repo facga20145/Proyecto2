@@ -6,6 +6,12 @@ export default function ManageCourses() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Número de cursos por página
 
+  // Simulamos la lista de docentes
+  const [teachers] = useState([
+    { id: 1, name: "Juan Pérez" },
+    { id: 2, name: "María Gómez" },
+    { id: 3, name: "Carlos Sánchez" }
+  ]);
   const handleAddCourse = (e) => {
     e.preventDefault();
     const newCourse = {
@@ -53,7 +59,13 @@ export default function ManageCourses() {
         </select>
 
         <label>Docente:</label>
-        <input type="text" name="teacher" required />
+        <select name="teacher" required>
+          {teachers.map((teacher) => (
+            <option key={teacher.id} value={teacher.name}>
+              {teacher.name}
+            </option>
+          ))}
+        </select>
 
         <label>Edad del Curso:</label>
         <select name="age" required>
