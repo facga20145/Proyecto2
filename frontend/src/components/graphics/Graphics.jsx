@@ -1,65 +1,50 @@
-import { useState } from 'react';
-//import './ManageAdmin.css';
+import React from 'react';
+import DailyIncomeChart from './DailyIncomeChart';
+import AccountsCreatedChart from './AccountsCreatedChart';
+import ScholarshipAccountsChart from './ScholarshipAccountsChart';
+import IncomeSummaryChart from './IncomeSummaryChart';
+import './Graphics.css';
 
-export default function ManageCourses() {
-  const [courses, setCourses] = useState([]);
-
-  const handleAddCourse = (e) => {
-    e.preventDefault();
-    const newCourse = {
-      name: e.target.name.value,
-      description: e.target.description.value,
-      image: e.target.image.files[0]
-    };
-    setCourses([...courses, newCourse]);
-    e.target.reset(); 
+const Graphics = () => {
+  const dailyIncomeData = {
+    labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+    values: [500, 600, 400, 700, 800, 450, 350],
   };
-  const handleEditCourse = (index) => {
-    alert(`Editar admin: ${courses[index].name}`);
+
+  const accountsData = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+    values: [5, 10, 15, 20, 25],
+  };
+
+  const scholarshipData = {
+    values: [40, 60], // 40% con beca, 60% sin beca
+  };
+
+  const incomeData = {
+    values: [5000, 20000, 80000, 150000],
   };
 
   return (
-    <div className="manage-admin-container">
-      <form className="manage-admin-form" onSubmit={handleAddCourse}>
-        <h2>Gestión de Administradores</h2>
-        <label>Nombre:</label>
-        <input type="text" name="name" required />
-        <label>Apellido:</label>
-        <input type="text" name="apellido" required />
-        <label>Correo:</label>
-        <input type="email" name="correo" required />
-        <label>Descripción:</label>
-        <textarea name="description" rows="4" required></textarea>
-
-        <label>Subir Imagen del Administrador:</label>
-        <input type="file" name="image" accept="image/*" required />
-
-        <button type="submit">Agregar Admin</button>
-      </form>
-
-      <div className="admin-created">
-        <h3>Administradores</h3>
-        {courses.length === 0 ? (
-          <p className="no-admin">No hay Admin creados.</p>
-        ) : (
-          <ul>
-            {courses.map((course, index) => (
-              <li key={index} className="admin-item">
-                <img
-                  src={URL.createObjectURL(course.image)}
-                  alt={course.name}
-                  className="admin-image"
-                />
-                <div className="admin-info">
-                  <h4>{course.name}</h4>
-                  <p>{course.description}</p>
-                  <button onClick={() => handleEditCourse(index)} className="edit-btn">Editar Curso</button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+    <div className="graphics-dashboard">
+      <h2>Panel de Gráficos</h2>
+      <div className="chart-row">
+        <div className="chart-card">
+          <DailyIncomeChart dailyIncomeData={dailyIncomeData} />
+        </div>
+        <div className="chart-card">
+          <AccountsCreatedChart accountsData={accountsData} />
+        </div>
+      </div>
+      <div className="chart-row">
+        <div className="chart-card">
+          <ScholarshipAccountsChart scholarshipData={scholarshipData} />
+        </div>
+        <div className="chart-card">
+          <IncomeSummaryChart incomeData={incomeData} />
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default Graphics;
