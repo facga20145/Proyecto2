@@ -8,6 +8,10 @@ export default function ManageAdmin() {
   const [searchTerm, setSearchTerm] = useState(""); // Para la barra de búsqueda
   const [password, setPassword] = useState(""); // Estado para la contraseña
 
+  // Paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Número de admins por página
+
   const handleAddAdmin = (e) => {
     e.preventDefault();
     const newAdmin = {
@@ -20,14 +24,15 @@ export default function ManageAdmin() {
     };
     setAdmins([...admins, newAdmin]);
     e.target.reset();
-    setPassword(""); // Limpiar la contraseña después de agregar
-    setShowAddForm(false); // Ocultar el formulario después de agregar el admin
+    setPassword("");
+    setShowAddForm(false);
   };
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
+  //boton editar no hace nada aun
   const handleEditAdmin = (index) => {
     alert(`Editar admin: ${admins[index].name}`);
   };
@@ -43,6 +48,15 @@ export default function ManageAdmin() {
       admin.correo.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Lógica de paginación
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentAdmins = filteredAdmins.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredAdmins.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   return (
     <div className="manage-admin-container">
       <div className="header">
@@ -105,36 +119,54 @@ export default function ManageAdmin() {
         {admins.length === 0 ? (
           <p>No hay administradores creados.</p>
         ) : (
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th className="col-numero">#</th>
-                <th className="col-nombre">Nombre</th>
-                <th className="col-correo">Correo</th>
-                <th className="col-contraseña">Contraseña</th>
-                <th className="col-estado">Estado</th>
-                <th className="col-acciones">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredAdmins.map((admin, index) => (
-                <tr key={index}>
-                  <td className="col-numero">{index + 1}</td>
-                  <td className="col-nombre">{admin.name} {admin.apellido}</td>
-                  <td className="col-correo">{admin.correo}</td>
-                  <td className="col-contraseña">{admin.password}</td>
-                  <td className="col-estado">
-                    <span className={`status ${admin.status.toLowerCase()}`}>
-                      {admin.status}
-                    </span>
-                  </td>
-                  <td className="col-acciones">
-                    <button className="edit-btn">Editar</button>
-                  </td>
+          <>
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th className="col-numero">#</th>
+                  <th className="col-nombre">Nombre</th>
+                  <th className="col-correo">Correo</th>
+                  <th className="col-contraseña">Contraseña</th>
+                  <th className="col-estado">Estado</th>
+                  <th className="col-acciones">Acciones</th>
                 </tr>
+              </thead>
+              <tbody>
+                {currentAdmins.map((admin, index) => (
+                  <tr key={index}>
+                    <td className="col-numero">
+                      {(currentPage - 1) * itemsPerPage + index + 1}
+                    </td>
+                    <td className="col-nombre">
+                      {admin.name} {admin.apellido}
+                    </td>
+                    <td className="col-correo">{admin.correo}</td>
+                    <td className="col-contraseña">{admin.password}</td>
+                    <td className="col-estado">
+                      <span className={`status ${admin.status.toLowerCase()}`}>
+                        {admin.status}
+                      </span>
+                    </td>
+                    <td className="col-acciones">
+                      <button className="edit-btn">Editar</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {/* Controles de paginación */}
+            <div className="pagination">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i + 1}
+                  onClick={() => handlePageChange(i + 1)}
+                  className={currentPage === i + 1 ? "active" : ""}
+                >
+                  {i + 1}
+                </button>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </>
         )}
       </div>
     </div>
