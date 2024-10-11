@@ -1,0 +1,61 @@
+.manage-users {
+    font-family: 'Roboto', sans-serif;
+    padding: 30px;
+    min-height: 100vh;
+  }
+  
+  .manage-users h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+  
+  /* Table styles */
+  .manage-users table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .manage-users th,
+  .manage-users td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+  }
+  
+  .manage-users th {
+    background-color: #1c154f;
+    color: #fff;
+  }
+  
+  .manage-users td {
+    color: #333;
+  }
+  
+  /* Button styles */
+  .manage-users button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #e63946;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .manage-users button:hover {
+    background-color: #d62828;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .manage-users table {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+  

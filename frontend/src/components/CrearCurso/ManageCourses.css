@@ -1,0 +1,92 @@
+.manage-courses-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.manage-courses-form {
+  width: 60%;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.manage-courses-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.manage-courses-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.manage-courses-form input[type="text"],
+.manage-courses-form input[type="url"],
+.manage-courses-form input[type="number"],
+.manage-courses-form select,
+.manage-courses-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.manage-courses-form button {
+  width: 100%;
+  padding: 15px;
+  background-color: #218838;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.manage-courses-form button:hover {
+  background-color: #1c742f;
+}
+
+.courses-created {
+  width: 60%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.course-item {
+  margin-bottom: 20px;
+}
+
+.course-info h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.course-info p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.edit-btn {
+  padding: 8px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #218838;
+}

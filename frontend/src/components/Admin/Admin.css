@@ -1,0 +1,63 @@
+.adminPanelContainerKids {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 20px;
+    padding: 20px;
+    background-image: url('../images/fondo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: auto;
+    min-height: 150vh;
+}
+
+.adminSidebarKids {
+    background: #ffffff10; 
+    backdrop-filter: blur(0.4rem);
+    -webkit-backdrop-filter: blur(0.4rem);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.adminImageKids {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.adminSidebarKids ul {
+    list-style: none;
+    padding: 0;
+}
+
+.adminSidebarKids ul li {
+    padding: 10px 0;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffde59;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    text-align: center;
+    margin: 10px;
+    border-radius: 25px;
+}
+
+.adminSidebarKids ul li.activeKids {
+    background-color: #cbbaf6; /* Color para el li activo */
+}
+
+.adminSidebarKids ul li:hover {
+    transform: translateY(-5px);
+    color: #1c154f; /* Cambiar color en hover */
+}
+
+.adminContentKids {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.adminContentKids p {
+    color: black;
+}
