@@ -98,9 +98,3 @@
   width: 10%;
 }
 
-@media (max-width: 768px) {
-  .manage-users table {
-    display: block;
-    overflow-x: auto;
-  }
-}
