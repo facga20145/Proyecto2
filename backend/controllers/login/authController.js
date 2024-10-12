@@ -1,4 +1,4 @@
-const connection = require("../config/db.js"); // Importa la conexión a la base de datos
+const connection = require("../../config/db.js"); // Importa la conexión a la base de datos
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt"); // Para cifrar la contraseña
 
@@ -14,46 +14,6 @@ const generateAccessToken = (user) => {
 const generateRefreshToken = (user) => {
   return jwt.sign({ id: user.id }, process.env.JWT_REFRESH_SECRET, {
     expiresIn: "7d",
-  });
-};
-
-// Controlador de registro de usuario
-exports.register = async (req, res) => {
-  const { nombre, apellido, edad, genero, email, password } = req.body;
-
-  // Validar si el correo ya existe en la base de datos
-  const queryCheckEmail = "SELECT * FROM users WHERE email = ?";
-  connection.query(queryCheckEmail, [email], async (err, results) => {
-    if (err) {
-      console.error("Error en la consulta a la base de datos:", err);
-      return res.status(500).json({ message: "Error en el servidor" });
-    }
-
-    if (results.length > 0) {
-      return res.status(400).json({ message: "El correo ya está registrado" });
-    }
-
-    // Cifrar la contraseña antes de guardarla
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Insertar el nuevo usuario en la base de datos
-    const queryInsertUser =
-      "INSERT INTO users (nombre, apellido, edad, genero, email, contrasena) VALUES (?, ?, ?, ?, ?, ?)";
-    connection.query(
-      queryInsertUser,
-      [nombre, apellido, edad, genero, email, hashedPassword],
-      (err, result) => {
-        if (err) {
-          console.error("Error al registrar al usuario:", err);
-          return res.status(500).json({ message: "Error en el servidor" });
-        }
-
-        // Devolver una respuesta exitosa al cliente
-        return res
-          .status(201)
-          .json({ message: "Usuario registrado exitosamente" });
-      }
-    );
   });
 };
 
@@ -80,7 +40,11 @@ exports.login = (req, res) => {
       if (!isPasswordValid) {
         return res.status(401).json({ message: "Contraseña incorrecta" });
       }
-
+      
+      // Verificar que sea admin o superadmin
+      if (user.rol !== 'admin' && user.rol !== 'superadmin') {
+        return res.status(403).json({ message: "Acceso denegado. Solo administradores pueden acceder." });
+      }
       // Generar tokens
       const accessToken = generateAccessToken(user);
       const refreshToken = generateRefreshToken(user);
@@ -94,6 +58,7 @@ exports.login = (req, res) => {
         accessToken,
         refreshToken,
         expirationTime, // Incluir el tiempo de expiración
+        role: user.rol
       });
     } else {
       return res

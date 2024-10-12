@@ -1,61 +1,103 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios"; // Asegúrate de importar axios
 import "./ManageTeacher.css";
 import generatePasswordIcon from "../images/refresh.png";
 
 export default function ManageTeacher() {
-  const [teacher, setTeacher] = useState([]);
-  const [showAddForm, setShowAddForm] = useState(false); // Para controlar si mostrar o no el formulario
-  const [searchTerm, setSearchTerm] = useState(""); // Para la barra de búsqueda
-  const [password, setPassword] = useState(""); // Estado para la contraseña
+  const [teacher, setTeacher] = useState([]); // Estado para la lista de docentes
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [password, setPassword] = useState("");
 
   // Paginación
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Número de profesores por página
-
-  const handleAddTeacher = (e) => {
+  const itemsPerPage = 10;
+  const handleAddTeacher = async (e) => {
     e.preventDefault();
     const newTeacher = {
-      name: e.target.name.value,
+      nombre: e.target.nombre.value,
       apellido: e.target.apellido.value,
-      correo: e.target.correo.value,
-      password: password, // Contraseña generada
+      email: e.target.email.value,
+      contrasena: password,
       status: "Active",
     };
-    setTeacher([...teacher, newTeacher]);
-    e.target.reset();
-    setPassword("");
-    setShowAddForm(false);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/teachers/add",
+        newTeacher
+      );
+      alert("Docente agregado correctamente");
+      setTeacher([...teacher, response.data]); // Actualiza el estado con el nuevo docente
+    } catch (error) {
+      console.error("Error al agregar el docente:", error);
+      alert("Hubo un error al agregar el docente");
+    }
   };
+  // Obtener los docentes cuando el componente se monta
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/teachers/list"
+        );
+        console.log(response.data); // Verifica aquí los datos que recibes
+        setTeacher(response.data);
+      } catch (error) {
+        console.error("Error al obtener la lista de docentes:", error);
+      }
+    };
+
+    fetchTeachers();
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  //boton editar no hace nada aun
-  const handleEditTeacher = (index) => {
-    alert(`Editar Profesor: ${teacher[index].name}`);
+  const handleEditTeacher = async (teacherId, newStatus) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/teachers/update/${teacherId}`, // Asegúrate de que el ID sea correcto
+        {
+          status: newStatus,
+        }
+      );
+      alert("Estado del docente actualizado correctamente");
+      setTeacher(
+        teacher.map((t) =>
+          t.id === teacherId ? { ...t, status: newStatus } : t
+        )
+      );
+    } catch (error) {
+      console.error("Error al actualizar el estado del docente:", error);
+      alert("Hubo un error al actualizar el estado del docente");
+    }
   };
 
   const generateRandomPassword = () => {
-    const randomPassword = Math.random().toString(36).slice(-8); // Generar una contraseña aleatoria
+    const randomPassword = Math.random().toString(36).slice(-8);
     setPassword(randomPassword);
   };
 
   const filteredTeachers = teacher.filter(
     (teacher) =>
-        teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        teacher.correo.toLowerCase().includes(searchTerm.toLowerCase())
+      teacher.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      teacher.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Lógica de paginación
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentTeachers = filteredTeachers.slice(indexOfFirstItem, indexOfLastItem);
+  const currentTeachers = filteredTeachers.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
   const totalPages = Math.ceil(filteredTeachers.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
   return (
     <div className="manage-teacher-container">
       <div className="header">
@@ -77,22 +119,21 @@ export default function ManageTeacher() {
         </div>
       </div>
 
-      {/* Mostrar el formulario para agregar un nuevo Docente */}
       {showAddForm && (
         <form className="manage-teacher-form" onSubmit={handleAddTeacher}>
           <h2>Agregar Docente</h2>
           <label>Nombre:</label>
-          <input type="text" name="name" required />
+          <input type="text" name="nombre" required />
           <label>Apellido:</label>
           <input type="text" name="apellido" required />
           <label>Correo:</label>
-          <input type="email" name="correo" required />
+          <input type="email" name="email" required />
 
           <label>Contraseña:</label>
           <div className="password-container">
             <input
               type="text"
-              name="password"
+              name="contrasena"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -110,7 +151,6 @@ export default function ManageTeacher() {
         </form>
       )}
 
-      {/* Tabla de Docentes */}
       <div className="teacher-list">
         {teacher.length === 0 ? (
           <p>No hay Docentes creados.</p>
@@ -130,23 +170,44 @@ export default function ManageTeacher() {
               <tbody>
                 {currentTeachers.map((teacher, index) => (
                   <tr key={index}>
-                    <td className="col-numero">{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                    <td className="col-nombre">{teacher.name} {teacher.apellido}</td>
-                    <td className="col-correo">{teacher.correo}</td>
-                    <td className="col-contraseña">{teacher.password}</td>
+                    <td className="col-numero">
+                      {(currentPage - 1) * itemsPerPage + index + 1}
+                    </td>
+                    <td className="col-nombre">
+                      {teacher.nombre} {teacher.apellido}
+                    </td>
+                    <td className="col-correo">{teacher.email}</td>
+                    <td className="col-contraseña">{teacher.contrasena}</td>
                     <td className="col-estado">
-                      <span className={`status ${teacher.status.toLowerCase()}`}>
-                        {teacher.status}
+                      <span
+                        className={`status ${
+                          teacher.status
+                            ? teacher.status.toLowerCase()
+                            : "unknown"
+                        }`}
+                      >
+                        {teacher.status ? teacher.status : "Unknown"}
                       </span>
                     </td>
                     <td className="col-acciones">
-                      <button className="edit-btn">Editar</button>
+                      <button
+                        className="edit-btn"
+                        onClick={() =>
+                          handleEditTeacher(
+                            teacher.id,
+                            teacher.status === "activo" ? "inactivo" : "activo"
+                          )
+                        }
+                      >
+                        {teacher.status === "activo"
+                          ? "Deshabilitar"
+                          : "Habilitar"}
+                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {/* Controles de paginación */}
             <div className="pagination">
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
