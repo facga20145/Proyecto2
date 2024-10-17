@@ -64,44 +64,44 @@ export default function Admin() {
   };
 
   return (
-    <div className="adminPanelContainerKids">
+    <div className="adminPanelContainer">
       {/* Primera columna: Opciones */}
-      <div className="adminSidebarKids">
-        <img src={logo} alt="Admin" className="adminImageKids" />
+      <div className="adminSidebar">
+        <img src={logo} alt="Admin" className="adminImage" />
         <ul>
           <li
             onClick={() => handleSectionChange("Usuarios")}
-            className={activeSection === "Usuarios" ? "activeKids" : ""}
+            className={activeSection === "Usuarios" ? "activeAdmin" : ""}
           >
             Usuarios
           </li>
           <li
             onClick={() => handleSectionChange("Becas")}
-            className={activeSection === "Becas" ? "activeKids" : ""}
+            className={activeSection === "Becas" ? "activeAdmin" : ""}
           >
             Becas
           </li>
           <li
             onClick={() => handleSectionChange("Graficos")}
-            className={activeSection === "Graficos" ? "activeKids" : ""}
+            className={activeSection === "Graficos" ? "activeAdmin" : ""}
           >
             Graficos
           </li>
           <li
             onClick={() => handleSectionChange("BecasRegistradas")}
-            className={activeSection === "BecasRegistradas" ? "activeKids" : ""}
+            className={activeSection === "BecasRegistradas" ? "activeAdmin" : ""}
           >
             Becas Registradas
           </li>
           <li
             onClick={() => handleSectionChange("GestionDocentes")}
-            className={activeSection === "GestionDocentes" ? "activeKids" : ""}
+            className={activeSection === "GestionDocentes" ? "activeAdmin" : ""}
           >
             Gestión de Docentes
           </li>
           <li
             onClick={() => handleSectionChange("CrearCursos")}
-            className={activeSection === "CrearCursos" ? "activeKids" : ""}
+            className={activeSection === "CrearCursos" ? "activeAdmin" : ""}
           >
             Crear Cursos
           </li>
@@ -115,13 +115,13 @@ export default function Admin() {
           </li>
           <li
             onClick={() => handleSectionChange("ExtraInfo")}
-            className={activeSection === "ExtraInfo" ? "activeKids" : ""}
+            className={activeSection === "ExtraInfo" ? "activeAdmin" : ""}
           >
             Extra Info
           </li>
         </ul>
       </div>
-      <div className="adminContentKids">{renderContent()}</div>
+      <div className="adminContent">{renderContent()}</div>
     </div>
   );
 }

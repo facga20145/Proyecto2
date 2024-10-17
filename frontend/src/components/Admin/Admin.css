@@ -1,4 +1,4 @@
-.adminPanelContainerKids {
+.adminPanelContainer {
     display: grid;
     grid-template-columns: 1fr 3fr; /* Distribución de barra lateral y contenido */
     gap: 20px;
@@ -12,7 +12,7 @@
 }
 
 /* Sidebar */
-.adminSidebarKids {
+.adminSidebar {
     background: #ffffff10; 
     backdrop-filter: blur(0.4rem);
     -webkit-backdrop-filter: blur(0.4rem);
@@ -21,18 +21,18 @@
     text-align: center;
 }
 
-.adminImageKids {
+.adminImage {
     width: 100%;
     border-radius: 10px;
     margin-bottom: 20px;
 }
 
-.adminSidebarKids ul {
+.adminSidebar ul {
     list-style: none;
     padding: 0;
 }
 
-.adminSidebarKids ul li {
+.adminSidebar ul li {
     padding: 10px 0;
     color: rgb(0, 0, 0);
     cursor: pointer;
@@ -44,72 +44,72 @@
     border-radius: 25px;
 }
 
-.adminSidebarKids ul li.activeKids {
+.adminSidebar ul li.activeAdmin {
     background-color: #cbbaf6; /* Color para el li activo */
 }
 
-.adminSidebarKids ul li:hover {
+.adminSidebar ul li:hover {
     transform: translateY(-5px);
     color: #1c154f; /* Cambiar color en hover */
 }
 
 /* Contenido principal */
-.adminContentKids {
+.adminContent {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
 }
 
 /* Texto por defecto */
-.adminContentKids p {
+.adminContent p {
     color: black;
 }
 
 /* Estilos responsivos */
 @media (max-width: 1024px) {
-    .adminPanelContainerKids {
+    .adminPanelContainer {
         grid-template-columns: 1fr; /* Una sola columna en pantallas más pequeñas */
         padding: 10px; /* Ajustar el padding */
     }
 
-    .adminSidebarKids {
+    .adminSidebar {
         padding: 10px; /* Reducir el padding */
     }
 
-    .adminContentKids {
+    .adminContent {
         padding: 10px;
     }
 
-    .adminSidebarKids ul li {
+    .adminSidebar ul li {
         padding: 8px; /* Reducir el padding de los botones */
         font-size: 0.9rem; /* Ajustar el tamaño del texto */
     }
 }
 
 @media (max-width: 768px) {
-    .adminSidebarKids ul li {
+    .adminSidebar ul li {
         font-size: 0.8rem; /* Reducir el tamaño de texto aún más */
     }
 
-    .adminContentKids {
+    .adminContent {
         font-size: 0.9rem; /* Reducir el tamaño de texto en el contenido */
     }
 
-    .adminImageKids {
+    .adminImage {
         width: 80%; /* Hacer que la imagen de logo sea más pequeña */
     }
 }
 
 @media (max-width: 480px) {
-    .adminSidebarKids {
+    .adminSidebar {
         padding: 5px;
     }
 
-    .adminContentKids {
+    .adminContent {
         padding: 5px;
     }
 
-    .adminSidebarKids ul li {
+    .adminSidebar ul li {
         font-size: 0.7rem; /* Reducir el tamaño del texto en dispositivos muy pequeños */
         padding: 5px;
     }

@@ -37,6 +37,8 @@
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #ffffff;/*agrego*/
+  color:#000000; /*agrego*/
 }
 
 .manage-courses-form button {
