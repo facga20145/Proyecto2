@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url('images/fondo.png');
+  background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  height: 100vh; /* Asegura que el fondo cubra toda la ventana */
+}
+
+.login-box{
+background: transparent; /* Transparente opaco */
+width: 440px;
+height: 480px;
+padding: 20px;
+color: #fff;
+backdrop-filter: blur(600px); /* Efecto de difuminado */
+border: 2px solid rgba(255, 253, 253, 0.2);
+box-shadow: 0 15px 25px rgba(0, 0, 0, 0.8); /* Sombra */
+border-radius: 20px;
+
+}
+.logo{
+  display: flex;
+  width: 140px;
+  margin-left: 120px;
+  height: auto;
+  text-align: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.login-box h1{
+  font-family: "Hammersmith One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  padding: 10px;
+  text-align: center;
+  font-size: 30px;
+}
+.login-box .input-box{
+position: relative;
+width: 100%;
+height: 40px;
+margin: 30px 0;
+}
+.input-box input{
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: 2px solid rgba(255, 253, 253, 0.2);
+  border-radius: 15px;
+  padding-left: 20px;
+  color: #fff;
+  font-family: "Hammersmith One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+}
+.input-box input::placeholder{
+  color:#fff
+}
+.remember-forgot{
+  display:flex;
+  text-align: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 16px;
+  font-family: "Hammersmith One", sans-serif;
+  margin:15px 0 15px
+}
+.remember-forgot a:hover{
+  text-decoration: underline;
+}
+.btn-submit{
+  width: 100%;
+  height: 45px;
+  background-color: #49408a;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+  font-family: "Hammersmith One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+
+}
+.btn-submit:hover{
+background-color:#8983b7 ;
+}
+
+/* Clase para aplicar cuando hay un error */
+input.error {
+  border: 2px solid red;
+}
+
+/* Estilos para el mensaje de error justo debajo del input */
+.error-message {
+  color: red;
+  font-size: 12px;
+  text-align: left; /* Alinea el texto a la izquierda debajo del input */
+}
+
+.input-box {
+  position: relative;
+  width: 100%;
+  margin: 30px 0;
+}
+
+.input-box input {
+  width: 100%;
+  background-color: transparent;
+  border: 2px solid rgba(255, 253, 253, 0.2);
+  border-radius: 15px;
+  padding-left: 20px;
+  padding-right: 50px; /* Añadimos suficiente espacio a la derecha para el icono */
+  color: #fff;
+  font-family: "Hammersmith One", sans-serif;
+  font-size: 16px;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 15px; /* Alineamos el icono bien a la derecha */
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+  z-index: 10; /* Aseguramos que esté por encima del input */
+  background: none;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; /* Ajustamos el ancho del contenedor del icono */
+  height: 100%; /* Hacemos que el icono ocupe toda la altura del input */
+  padding: 0;
+}
+
+.toggle-password svg {
+  pointer-events: none; /* Asegura que solo el contenedor reciba clics, no el svg */
+}
+
+/* Flecha en la esquina superior izquierda de la página */
+.back-arrow {
+  width: 10%;
+  font-size: 24px;  
+  color: #fff;      
+  cursor: pointer;  /* Cambia el cursor a pointer al pasar sobre la flecha */
+  transition: transform 0.2s ease-in-out;  /* Efecto de transición al hacer hover */
+}
+
+.back-arrow:hover {
+  transform: scale(1.2); /* Efecto de agrandamiento al pasar el cursor */
+}

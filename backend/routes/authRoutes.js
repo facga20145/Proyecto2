@@ -1,6 +1,6 @@
 const express = require("express");
-const jwt = require("jsonwebtoken"); // IMPORTAR JWT aquí
-const authController = require("../controllers/authController.js");
+const jwt = require("jsonwebtoken");
+const authController = require("../controllers/login/authController.js");
 const router = express.Router();
 
 // Ruta para login
@@ -53,11 +53,8 @@ router.get("/userdata", (req, res) => {
     // Enviar de vuelta los datos del usuario decodificado
     res.json({
       id: user.id,
+      rol: user.rol
     });
   });
 });
-
-// Ruta para registro de usuario
-router.post("/register", authController.register); // Añadimos la ruta para el registro
-
 module.exports = router;
