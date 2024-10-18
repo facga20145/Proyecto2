@@ -12,8 +12,8 @@
 }
 
 /* Sidebar */
-.adminSidebar {
-    background: #fff; 
+.adminSidebarKids {
+    background: #ffffff10; 
     backdrop-filter: blur(0.4rem);
     -webkit-backdrop-filter: blur(0.4rem);
     /* padding: 30px; */
@@ -48,8 +48,8 @@
     border-radius: 25px;
 }
 
-.adminSidebar ul li.active {
-    background-color: #5d6677; /* Color para el li activo */
+.adminSidebarKids ul li.activeKids {
+    background-color: #cbbaf6; /* Color para el li activo */
 }
 
 .adminSidebar ul li:hover {
