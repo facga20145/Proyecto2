@@ -1,8 +1,7 @@
-import logo from "./images/logo-name.png";
+import logo from "./images/Logo-Black.svg";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa"; // Importar el ícono de flecha
 import "./Login.css";
 

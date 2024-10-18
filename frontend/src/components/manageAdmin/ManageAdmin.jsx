@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./ManageAdmin.css";
-import generatePasswordIcon from "../images/refresh.png"; // Icono de generar contraseña
+import generatePasswordIcon from "../images/refresh.svg"; // Icono de generar contraseña
 
 export default function ManageAdmin() {
   const [admins, setAdmins] = useState([]);
