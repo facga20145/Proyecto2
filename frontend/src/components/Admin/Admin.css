@@ -1,9 +1,9 @@
-.adminPanelContainerKids {
+.adminPanelContainer {
     display: grid;
     grid-template-columns: 1fr 3fr; /* Distribución de barra lateral y contenido */
     gap: 20px;
     padding: 20px;
-    background-image: url('../images/fondo.png');
+    background-color: black;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -12,104 +12,108 @@
 }
 
 /* Sidebar */
-.adminSidebarKids {
-    background: #ffffff10; 
+.adminSidebar {
+    background: #fff; 
     backdrop-filter: blur(0.4rem);
     -webkit-backdrop-filter: blur(0.4rem);
-    padding: 20px;
+    /* padding: 30px; */
+    padding-left: 10px;
+    padding-right: 40px;
+    align-items: flex-start;
     border-radius: 10px;
     text-align: center;
 }
 
-.adminImageKids {
+.adminImage {
     width: 100%;
     border-radius: 10px;
+    padding-left: 20px;
     margin-bottom: 20px;
 }
 
-.adminSidebarKids ul {
+.adminSidebar ul {
     list-style: none;
     padding: 0;
 }
 
-.adminSidebarKids ul li {
+.adminSidebar ul li {
     padding: 10px 0;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
-    background-color: #ffde59;
+    background-color: rgb(48, 48, 48);
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
     text-align: center;
     margin: 10px;
     border-radius: 25px;
 }
 
-.adminSidebarKids ul li.activeKids {
-    background-color: #cbbaf6; /* Color para el li activo */
+.adminSidebar ul li.active {
+    background-color: #5d6677; /* Color para el li activo */
 }
 
-.adminSidebarKids ul li:hover {
+.adminSidebar ul li:hover {
     transform: translateY(-5px);
-    color: #1c154f; /* Cambiar color en hover */
+    color: #ffffff; /* Cambiar color en hover */
 }
 
 /* Contenido principal */
-.adminContentKids {
+.adminContent {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
 }
 
 /* Texto por defecto */
-.adminContentKids p {
+.adminContent p {
     color: black;
 }
 
 /* Estilos responsivos */
 @media (max-width: 1024px) {
-    .adminPanelContainerKids {
+    .adminPanelContainer {
         grid-template-columns: 1fr; /* Una sola columna en pantallas más pequeñas */
         padding: 10px; /* Ajustar el padding */
     }
 
-    .adminSidebarKids {
+    .adminSidebar {
         padding: 10px; /* Reducir el padding */
     }
 
-    .adminContentKids {
+    .adminContent {
         padding: 10px;
     }
 
-    .adminSidebarKids ul li {
+    .adminSidebar ul li {
         padding: 8px; /* Reducir el padding de los botones */
         font-size: 0.9rem; /* Ajustar el tamaño del texto */
     }
 }
 
 @media (max-width: 768px) {
-    .adminSidebarKids ul li {
+    .adminSidebar ul li {
         font-size: 0.8rem; /* Reducir el tamaño de texto aún más */
     }
 
-    .adminContentKids {
+    .adminContent {
         font-size: 0.9rem; /* Reducir el tamaño de texto en el contenido */
     }
 
-    .adminImageKids {
+    .adminImage {
         width: 80%; /* Hacer que la imagen de logo sea más pequeña */
     }
 }
 
 @media (max-width: 480px) {
-    .adminSidebarKids {
+    .adminSidebar {
         padding: 5px;
     }
 
-    .adminContentKids {
+    .adminContent {
         padding: 5px;
     }
 
-    .adminSidebarKids ul li {
+    .adminSidebar ul li {
         font-size: 0.7rem; /* Reducir el tamaño del texto en dispositivos muy pequeños */
         padding: 5px;
     }

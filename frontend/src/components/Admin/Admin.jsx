@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Admin.css";
-import logo from "../images/logo.png";
+import logo from "../images/Logo-Black.svg";
 import ManageUsers from "../manageUsers/ManageUsers";
 import ManageScholarships from "../becas/ManageScholarships";
 import ManageCourses from "../CrearCurso/ManageCourses";
@@ -64,64 +64,64 @@ export default function Admin() {
   };
 
   return (
-    <div className="adminPanelContainerKids">
+    <div className="adminPanelContainer">
       {/* Primera columna: Opciones */}
-      <div className="adminSidebarKids">
-        <img src={logo} alt="Admin" className="adminImageKids" />
+      <div className="adminSidebar">
+        <img src={logo} alt="Admin" className="adminImage" />
         <ul>
           <li
             onClick={() => handleSectionChange("Usuarios")}
-            className={activeSection === "Usuarios" ? "activeKids" : ""}
+            className={activeSection === "Usuarios" ? "active" : ""}
           >
             Usuarios
           </li>
           <li
             onClick={() => handleSectionChange("Becas")}
-            className={activeSection === "Becas" ? "activeKids" : ""}
+            className={activeSection === "Becas" ? "active" : ""}
           >
             Becas
           </li>
           <li
             onClick={() => handleSectionChange("Graficos")}
-            className={activeSection === "Graficos" ? "activeKids" : ""}
+            className={activeSection === "Graficos" ? "active" : ""}
           >
             Graficos
           </li>
           <li
             onClick={() => handleSectionChange("BecasRegistradas")}
-            className={activeSection === "BecasRegistradas" ? "activeKids" : ""}
+            className={activeSection === "BecasRegistradas" ? "active" : ""}
           >
             Becas Registradas
           </li>
           <li
             onClick={() => handleSectionChange("GestionDocentes")}
-            className={activeSection === "GestionDocentes" ? "activeKids" : ""}
+            className={activeSection === "GestionDocentes" ? "active" : ""}
           >
             Gestión de Docentes
           </li>
           <li
             onClick={() => handleSectionChange("CrearCursos")}
-            className={activeSection === "CrearCursos" ? "activeKids" : ""}
+            className={activeSection === "CrearCursos" ? "active" : ""}
           >
             Crear Cursos
           </li>
           <li
             onClick={() => handleSectionChange("CrearAdministradores")}
             className={
-              activeSection === "CrearAdministradores" ? "activeKids" : ""
+              activeSection === "CrearAdministradores" ? "active" : ""
             }
           >
             Crear Administradores
           </li>
           <li
             onClick={() => handleSectionChange("ExtraInfo")}
-            className={activeSection === "ExtraInfo" ? "activeKids" : ""}
+            className={activeSection === "ExtraInfo" ? "active" : ""}
           >
             Extra Info
           </li>
         </ul>
       </div>
-      <div className="adminContentKids">{renderContent()}</div>
+      <div className="adminContent">{renderContent()}</div>
     </div>
   );
 }

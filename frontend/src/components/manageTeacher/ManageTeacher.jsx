@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./ManageTeacher.css";
-import generatePasswordIcon from "../images/refresh.png";
+import generatePasswordIcon from "../images/refresh.svg";
 
 export default function ManageTeacher() {
   const [teacher, setTeacher] = useState([]);
