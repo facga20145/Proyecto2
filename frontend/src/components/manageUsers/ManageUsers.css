@@ -1,3 +1,4 @@
+/* Estilos generales */
 .manage-users {
   font-family: 'Roboto', sans-serif;
   padding: 30px;
@@ -11,13 +12,15 @@
   font-weight: 600;
 }
 
-
+/* Tabla */
 .manage-users table {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
+  overflow-x: auto; /* Permitir scroll horizontal en pantallas pequeñas */
+  display: block; /* Se asegura que la tabla no desborde el contenedor */
+  white-space: nowrap; /* Evitar que las celdas se envuelvan en líneas más pequeñas */
 }
 
 .manage-users th,
@@ -37,7 +40,7 @@
   color: #333;
 }
 
-
+/* Botones */
 .manage-users button {
   padding: 10px 15px;
   border: none;
@@ -60,7 +63,7 @@
   background-color: #d62828;
 }
 
-
+/* Paginación */
 .pagination {
   display: flex;
   justify-content: center;
@@ -85,6 +88,7 @@
   background-color: #bbb;
 }
 
+/* Columnas */
 .col-nombre, 
 .col-correo {
   width: 30%;
@@ -98,3 +102,69 @@
   width: 10%;
 }
 
+/* Estilos responsivos para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .manage-users {
+    padding: 20px;
+  }
+
+  .manage-users h1 {
+    font-size: 1.5rem;
+  }
+
+  .manage-users table {
+    width: 100%;
+    display: block; /* Se asegura de que la tabla no cause desbordamiento */
+    overflow-x: auto; /* Permitir scroll horizontal */
+  }
+
+  .manage-users th, .manage-users td {
+    font-size: 0.9rem; /* Reducir tamaño de fuente en pantallas pequeñas */
+  }
+
+  /* Ajustes de ancho de columna para evitar desbordamiento en pantallas pequeñas */
+  .col-nombre,
+  .col-correo {
+    width: 40%; /* Ajustar el ancho en pantallas pequeñas */
+  }
+
+  .col-edad,
+  .col-beca,
+  .col-plan,
+  .col-estado,
+  .col-acciones {
+    width: 20%; /* Ajustar el ancho en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  .manage-users {
+    padding: 15px;
+  }
+
+  .manage-users h1 {
+    font-size: 1.2rem;
+  }
+
+  .manage-users table {
+    font-size: 0.8rem; /* Reducir aún más el tamaño del texto */
+  }
+
+  .manage-users th, .manage-users td {
+    padding: 10px;
+  }
+
+  /* Columnas más estrechas en pantallas más pequeñas */
+  .col-nombre,
+  .col-correo {
+    width: 50%;
+  }
+
+  .col-edad,
+  .col-beca,
+  .col-plan,
+  .col-estado,
+  .col-acciones {
+    width: 25%;
+  }
+}

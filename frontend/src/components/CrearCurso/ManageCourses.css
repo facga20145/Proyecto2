@@ -5,15 +5,21 @@
   align-items: center;
   width: 100%;
   padding: 20px;
+  min-height: 100vh; /* Para que ocupe toda la altura de la pantalla */
 }
 
 .manage-courses-form {
   width: 60%;
+  max-width: 600px; /* Ancho máximo para que no sea demasiado ancho */
   background-color: #fff;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .manage-courses-form h2 {
@@ -24,6 +30,7 @@
 .manage-courses-form label {
   display: block;
   margin-bottom: 5px;
+  width: 100%; /* Para que las etiquetas ocupen todo el ancho */
   color: #333;
 }
 
@@ -37,8 +44,8 @@
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #ffffff;/*agrego*/
-  color:#000000; /*agrego*/
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .manage-courses-form button {
@@ -59,6 +66,7 @@
 
 .courses-created {
   width: 60%;
+  max-width: 600px; /* Ancho máximo para la tabla */
   background-color: white;
   border-radius: 10px;
   padding: 20px;
@@ -115,4 +123,38 @@
 .pagination button.active {
   background-color: #218838;
   color: white;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .manage-courses-form {
+    width: 90%; /* Ajustar el ancho del formulario en pantallas más pequeñas */
+  }
+
+  .courses-created {
+    width: 90%; /* Ajustar el ancho de la tabla en pantallas más pequeñas */
+  }
+
+  .manage-courses-form button {
+    font-size: 16px; /* Ajustar el tamaño de la fuente */
+  }
+}
+
+@media (max-width: 480px) {
+  .manage-courses-form {
+    padding: 15px; /* Reducir el padding en pantallas muy pequeñas */
+  }
+
+  .courses-created {
+    padding: 15px; /* Ajustar el padding en pantallas muy pequeñas */
+  }
+
+  .manage-courses-form button {
+    padding: 10px; /* Reducir el tamaño del botón */
+    font-size: 14px; /* Reducir el tamaño de la fuente */
+  }
+
+  .pagination button {
+    padding: 8px 10px; /* Ajustar el tamaño de los botones de paginación */
+  }
 }
