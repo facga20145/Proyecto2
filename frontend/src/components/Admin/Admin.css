@@ -12,7 +12,7 @@
 }
 
 /* Sidebar */
-.adminSidebarKids {
+.adminSidebar {
     background: #ffffff10; 
     backdrop-filter: blur(0.4rem);
     -webkit-backdrop-filter: blur(0.4rem);
@@ -21,7 +21,7 @@
     padding-right: 40px;
     align-items: flex-start;
     border-radius: 10px;
-    text-align: center;
+    text-align: flex-start;
 }
 
 .adminImage {
@@ -37,13 +37,13 @@
 }
 
 .adminSidebar ul li {
-    padding: 10px 0;
+    padding: 15px 32px;
     color: rgb(255, 255, 255);
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
-    background-color: rgb(48, 48, 48);
+    background-color: rgba(48, 48, 48, 0);
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-    text-align: center;
+    text-align: flex-start;
     margin: 10px;
     border-radius: 25px;
 }

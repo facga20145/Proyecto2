@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Admin.css";
-import logo from "../images/Logo-Black.svg";
+import logo from "../images/Logo-White.svg";
 import ManageUsers from "../manageUsers/ManageUsers";
 import ManageScholarships from "../becas/ManageScholarships";
 import ManageCourses from "../CrearCurso/ManageCourses";
