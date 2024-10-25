@@ -77,6 +77,9 @@ export default function ManageCourses() {
         <label>Precio:</label>
         <input type="number" name="price" required />
 
+        <label>Duración:</label>
+        <input type="text" name="duration" required />
+
         <label>Enlace del Video (YouTube):</label>
         <input type="text" name="videoLink" required />
 

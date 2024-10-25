@@ -1,142 +1,249 @@
 .manage-teacher-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  .search-input {
-    padding: 10px;
-    width: 60%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .add-teacher-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .add-teacher-btn:hover {
-    background-color: #0056b3;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  min-height: 100vh; /* Asegura que ocupe toda la pantalla */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Ajustar la barra de búsqueda y el botón para pantallas pequeñas */
+}
+
+.search-input {
+  padding: 10px;
+  width: 60%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px; /* Agrega margen en pantallas pequeñas */
+}
+
+.add-teacher-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px; /* Espacio entre el botón y el input en pantallas pequeñas */
+}
+
+.add-teacher-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Formulario */
+.manage-teacher-form {
+  width: 60%;
+  max-width: 600px; /* Ancho máximo para formularios más pequeños */
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px auto; /* Centra el formulario horizontalmente */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Asegura que el contenido esté centrado */
+}
+
+.manage-teacher-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.manage-teacher-form label {
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  text-align: left; /* Mantiene las etiquetas alineadas a la izquierda */
+}
+
+.manage-teacher-form input, 
+.manage-teacher-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.password-container input {
+  flex-grow: 1;
+}
+
+.generate-password-icon {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* Tabla de docentes */
+.teacher-list {
+  width: 100%;
+  overflow-x: auto; /* Scroll horizontal en pantallas pequeñas */
+}
+
+.teacher-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px 0;
+  white-space: nowrap; /* Evitar que las columnas se envuelvan en pantallas pequeñas */
+}
+
+.teacher-table th, 
+.teacher-table td {
+  padding: 14px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.teacher-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.teacher-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.col-numero {
+  width: 5%;
+  text-align: center;
+}
+
+.col-nombre, 
+.col-correo {
+  width: 30%;
+}
+
+.col-contraseña {
+  width: 15%;
+}
+
+.col-estado,
+.col-acciones {
+  width: 10%;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.status.activo {
+  color: green;
+}
+
+.status.inactivo {
+  color: red;
+}
+
+.edit-btn {
+  padding: 8px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+  background-color: #218838;
+}
+
+/* Paginación */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination button:hover {
+  background-color: #bbb;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
   .manage-teacher-form {
-    width: 60%;
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+    width: 90%; /* Ajustar el ancho del formulario en pantallas pequeñas */
   }
-  
-  .manage-teacher-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .manage-teacher-form label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .password-container {
-    display: flex;
-    align-items: center;
+
+  .search-input {
+    width: 100%; /* Ancho completo en pantallas pequeñas */
     margin-bottom: 15px;
   }
-  
-  .password-container input {
-    flex-grow: 1;
+
+  .add-teacher-btn {
+    width: 100%; /* Botón a ancho completo en pantallas pequeñas */
+    margin-left: 0;
   }
-  
-  .generate-password-icon {
-    width: 30px;
-    height: 30px;
-    margin-left: 10px;
-    cursor: pointer;
+
+  .teacher-table th, 
+  .teacher-table td {
+    font-size: 0.9rem; /* Reducir tamaño de fuente en pantallas más pequeñas */
+    padding: 10px;
   }
-  
-  .teacher-list {
-    width: 100%;
+}
+
+@media (max-width: 480px) {
+  .manage-teacher-form {
+    padding: 15px; /* Reducir padding en pantallas muy pequeñas */
   }
-  
-  .teacher-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px 0;
+
+  .teacher-table th, 
+  .teacher-table td {
+    font-size: 0.8rem; /* Reducir aún más el tamaño de fuente */
+    padding: 8px;
   }
-  
-  .teacher-table th, .teacher-table td {
-    padding: 14px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+
+  .search-input, 
+  .add-teacher-btn {
+    font-size: 14px; /* Reducir tamaño de texto */
   }
-  
-  .teacher-table th {
-    background-color: #007bff;
-    color: white;
-  }
-  .teacher-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .col-numero {
-    width: 5%;
-    text-align: center;
-  }
-  .col-nombre, 
-  .col-correo {
-    width: 30%;
-  }
-  .col-contraseña {
-    width: 15%;
-  }
-  .col-estado,
-  .col-acciones {
-    width: 10%;
-  }
-  
-  .admin-table td {
-    vertical-align: middle;
-  }
-  
-  .status-active {
-    color: green;
-    font-weight: bold;
-  }
-  
-  .status-inactive {
-    color: red;
-    font-weight: bold;
-  }
-  
+
   .edit-btn {
-    padding: 8px 15px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 6px 10px; /* Ajustar tamaño del botón */
+    font-size: 0.9rem; /* Reducir tamaño del texto */
   }
-  
-  .edit-btn:hover {
-    background-color: #218838;
+
+  .pagination button {
+    padding: 8px 10px; /* Ajustar el tamaño de los botones de paginación */
   }
-  
+}

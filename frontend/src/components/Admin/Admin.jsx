@@ -7,57 +7,43 @@ import ManageCourses from "../CrearCurso/ManageCourses";
 import ManageAdmin from "../manageAdmin/ManageAdmin";
 import ManageTeacher from "../manageTeacher/ManageTeacher";
 import Graphics from "../graphics/Graphics";
+import ManageSesion from "../becas/ManageScholarships";
 
 export default function Admin() {
   // Estado para controlar qué sección está activa
   const [activeSection, setActiveSection] = useState("dashboard");
 
+  // Estado para controlar si el menú hamburguesa está abierto
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   // Función para cambiar la sección activa
   const handleSectionChange = (section) => {
     setActiveSection(section);
+    setIsSidebarOpen(false); // Cerrar el menú hamburguesa al seleccionar una opción
+  };
+
+  // Alternar el estado del menú hamburguesa
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   // Diferentes secciones de contenido
   const renderContent = () => {
     switch (activeSection) {
       case "Usuarios":
-        return (
-          <div>
-            <ManageUsers />
-          </div>
-        );
+        return <ManageUsers />;
       case "Becas":
-        return (
-          <div>
-            <ManageScholarships />
-          </div>
-        );
+        return <ManageScholarships />;
       case "Graficos":
-        return (
-          <div>
-            <Graphics />
-          </div>
-        );
+        return <Graphics />;
       case "GestionDocentes":
-        return (
-          <div>
-            <ManageTeacher />
-          </div>
-          );  
+        return <ManageTeacher />;
       case "CrearCursos":
-        return (
-          <div>
-            <ManageCourses />
-          </div>
-        );
+        return <ManageCourses />;
       case "CrearAdministradores":
-        return (
-          <div>
-            <ManageAdmin />
-          </div>
-        );
-      case "ExtraInfo":
-        return <p>Nueva Informacion en progreso</p>;
+        return <ManageAdmin />;
+      case "CerrarSesion":
+        return <ManageSesion />;
       default:
         return <p>Selecciona una opción</p>;
     }
@@ -65,62 +51,43 @@ export default function Admin() {
 
   return (
     <div className="adminPanelContainer">
+      {/* Botón de menú hamburguesa */}
+      <button className="hamburger" onClick={toggleSidebar}>
+        ☰
+      </button>
+
       {/* Primera columna: Opciones */}
-      <div className="adminSidebar">
+      <div className={`adminSidebar ${isSidebarOpen ? "responsive" : ""}`}>
         <img src={logo} alt="Admin" className="adminImage" />
         <ul>
-          <li
-            onClick={() => handleSectionChange("Usuarios")}
-            className={activeSection === "Usuarios" ? "active" : ""}
-          >
+          <li onClick={() => handleSectionChange("Usuarios")} className={activeSection === "Usuarios" ? "active" : ""}>
             Usuarios
           </li>
-          <li
-            onClick={() => handleSectionChange("Becas")}
-            className={activeSection === "Becas" ? "active" : ""}
-          >
+          <li onClick={() => handleSectionChange("Becas")} className={activeSection === "Becas" ? "active" : ""}>
             Becas
           </li>
-          <li
-            onClick={() => handleSectionChange("Graficos")}
-            className={activeSection === "Graficos" ? "active" : ""}
-          >
+          <li onClick={() => handleSectionChange("Graficos")} className={activeSection === "Graficos" ? "active" : ""}>
             Graficos
           </li>
-          <li
-            onClick={() => handleSectionChange("BecasRegistradas")}
-            className={activeSection === "BecasRegistradas" ? "active" : ""}
-          >
+          <li onClick={() => handleSectionChange("BecasRegistradas")} className={activeSection === "BecasRegistradas" ? "active" : ""}>
             Becas Registradas
           </li>
-          <li
-            onClick={() => handleSectionChange("GestionDocentes")}
-            className={activeSection === "GestionDocentes" ? "active" : ""}
-          >
+          <li onClick={() => handleSectionChange("GestionDocentes")} className={activeSection === "GestionDocentes" ? "active" : ""}>
             Gestión de Docentes
           </li>
-          <li
-            onClick={() => handleSectionChange("CrearCursos")}
-            className={activeSection === "CrearCursos" ? "active" : ""}
-          >
+          <li onClick={() => handleSectionChange("CrearCursos")} className={activeSection === "CrearCursos" ? "active" : ""}>
             Crear Cursos
           </li>
-          <li
-            onClick={() => handleSectionChange("CrearAdministradores")}
-            className={
-              activeSection === "CrearAdministradores" ? "active" : ""
-            }
-          >
+          <li onClick={() => handleSectionChange("CrearAdministradores")} className={activeSection === "CrearAdministradores" ? "active" : ""}>
             Crear Administradores
           </li>
-          <li
-            onClick={() => handleSectionChange("ExtraInfo")}
-            className={activeSection === "ExtraInfo" ? "active" : ""}
-          >
-            Extra Info
+          <li onClick={() => handleSectionChange("CerrarSesion")} className={activeSection === "CerrarSesion" ? "active" : ""}>
+            Cerrar Sesion
           </li>
         </ul>
       </div>
+
+      {/* Contenido principal */}
       <div className="adminContent">{renderContent()}</div>
     </div>
   );
