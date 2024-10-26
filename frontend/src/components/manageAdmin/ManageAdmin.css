@@ -1,9 +1,10 @@
 .manage-admin-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
+  min-height: 100vh; /* Asegura que ocupe toda la pantalla */
   padding: 20px;
 }
 
@@ -13,6 +14,7 @@
   align-items: center;
   width: 100%;
   margin-bottom: 20px;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
 }
 
 .search-input {
@@ -20,6 +22,7 @@
   width: 60%;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-bottom: 10px; /* Espacio para pantallas pequeñas */
 }
 
 .add-admin-btn {
@@ -30,6 +33,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  margin-left: 10px; /* Espacio entre el botón y el input en pantallas pequeñas */
 }
 
 .add-admin-btn:hover {
@@ -38,11 +42,16 @@
 
 .manage-admin-form {
   width: 60%;
+  max-width: 600px; /* Ancho máximo para el formulario */
   background-color: white;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 80vh; /* Limita el tamaño del formulario en pantallas pequeñas */
 }
 
 .manage-admin-form h2 {
@@ -53,6 +62,17 @@
 .manage-admin-form label {
   display: block;
   margin-bottom: 5px;
+  width: 100%;
+}
+
+.manage-admin-form input, 
+.manage-admin-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 1rem;
 }
 
 .password-container {
@@ -74,24 +94,29 @@
 
 .admin-list {
   width: 100%;
+  flex-grow: 1;
+  overflow-x: auto; /* Scroll horizontal en pantallas pequeñas */
 }
 
 .admin-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px 0;
+  margin-top: 20px;
+  white-space: nowrap; /* Evita el wrapping en pantallas pequeñas */
 }
 
 .admin-table th, .admin-table td {
   padding: 14px 15px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  font-size: 1rem;
 }
 
 .admin-table th {
   background-color: #007bff;
   color: white;
 }
+
 .admin-table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -100,30 +125,31 @@
   width: 5%;
   text-align: center;
 }
+
 .col-nombre, 
 .col-correo {
   width: 30%;
 }
+
 .col-contraseña {
   width: 15%;
 }
+
 .col-estado,
 .col-acciones {
   width: 10%;
 }
 
-.admin-table td {
-  vertical-align: middle;
+.status {
+  font-weight: bold;
 }
 
-.status-active {
+.status.active {
   color: green;
-  font-weight: bold;
 }
 
-.status-inactive {
+.status.inactive {
   color: red;
-  font-weight: bold;
 }
 
 .edit-btn {
@@ -138,4 +164,83 @@
 
 .edit-btn:hover {
   background-color: #218838;
+}
+
+/* Paginación */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination button:hover {
+  background-color: #bbb;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .manage-admin-form {
+    width: 90%; /* Ajustar el ancho del formulario en pantallas pequeñas */
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-input {
+    width: 100%; /* Ancho completo en pantallas pequeñas */
+    margin-bottom: 15px;
+  }
+
+  .add-admin-btn {
+    width: 100%; /* Botón a ancho completo en pantallas pequeñas */
+    margin-left: 0;
+  }
+
+  .admin-table th, 
+  .admin-table td {
+    font-size: 0.9rem; /* Reducir tamaño de fuente en pantallas más pequeñas */
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .manage-admin-form {
+    padding: 15px; /* Reducir padding en pantallas muy pequeñas */
+  }
+
+  .admin-table th, 
+  .admin-table td {
+    font-size: 0.8rem; /* Reducir aún más el tamaño de fuente */
+    padding: 8px;
+  }
+
+  .search-input, 
+  .add-admin-btn {
+    font-size: 14px; /* Reducir tamaño de texto */
+  }
+
+  .edit-btn {
+    padding: 6px 10px; /* Ajustar tamaño del botón */
+    font-size: 0.9rem; /* Reducir tamaño del texto */
+  }
+
+  .pagination button {
+    padding: 8px 10px; /* Ajustar el tamaño de los botones de paginación */
+  }
 }

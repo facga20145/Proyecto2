@@ -1,11 +1,11 @@
 .manage-teacher-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
-  padding: 20px;
   min-height: 100vh; /* Asegura que ocupe toda la pantalla */
+  padding: 20px;
 }
 
 .header {
@@ -52,7 +52,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* Asegura que el contenido esté centrado */
+  align-items: center;
+  overflow-y: auto;
+  max-height: 80vh; /* Limitar el tamaño para pantallas pequeñas */
 }
 
 .manage-teacher-form h2 {
@@ -97,13 +99,14 @@
 /* Tabla de docentes */
 .teacher-list {
   width: 100%;
+  flex-grow: 1;
   overflow-x: auto; /* Scroll horizontal en pantallas pequeñas */
 }
 
 .teacher-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px 0;
+  margin-top: 20px;
   white-space: nowrap; /* Evitar que las columnas se envuelvan en pantallas pequeñas */
 }
 
@@ -202,7 +205,7 @@
 
   .header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .search-input {
