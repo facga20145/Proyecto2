@@ -11,7 +11,7 @@ exports.addTeacher = async (req, res) => {
 
   try {
     // Verificar si el correo ya existe en la base de datos
-    const queryCheckEmail = "SELECT * FROM users WHERE email = ?";
+    const queryCheckEmail = "SELECT * FROM usuario WHERE Correo = ?";
     connection.query(queryCheckEmail, [correo], async (err, results) => {
       if (err) {
         console.error("Error en la consulta a la base de datos:", err);
@@ -28,12 +28,12 @@ exports.addTeacher = async (req, res) => {
 
         // Insertar el nuevo docente en la base de datos con los campos correspondientes
         const queryInsertTeacher = `
-          INSERT INTO users (nombre, apellido, email, contrasena, genero, fecha_nacimiento, rol, status) 
-          VALUES (?, ?, ?, ?, ?, ?, 'docente', 'activo')
+          INSERT INTO usuario (Nombre, Apellido, FechaNacimiento,Genero, Correo, Contrasena, Rol) 
+          VALUES (?, ?, ?, ?, ?, ?, 'docente')
         `;
         connection.query(
           queryInsertTeacher,
-          [nombre, apellido, correo, hashedPassword, genero, fecha_nacimiento],
+          [nombre, apellido, fecha_nacimiento, genero, correo, hashedPassword],
           (err, result) => {
             if (err) {
               console.error("Error al agregar al docente:", err);
@@ -57,24 +57,35 @@ exports.addTeacher = async (req, res) => {
 
 // Controlador para obtener todos los docentes
 exports.getTeachers = (req, res) => {
-  const query = "SELECT id, nombre, apellido, email, contrasena, status FROM users WHERE rol = 'docente'";
+  const query = `
+    SELECT 
+      idUsuario, 
+      Nombre, 
+      Apellido, 
+      Correo, 
+      Contrasena, 
+      CAST(Estado AS UNSIGNED) AS Estado
+    FROM usuario 
+    WHERE Rol = 'docente'
+  `;
+
   connection.query(query, (err, results) => {
     if (err) {
       console.error("Error al obtener docentes:", err);
       return res.status(500).json({ message: "Error en el servidor" });
     }
 
-    // Devolver la lista de docentes con su contraseña hasheada y su estado
+    // Devolver la lista de docentes con Estado como entero (0 o 1)
     return res.status(200).json(results);
   });
-};
+}; // <- Llave de cierre añadida aquí
 
 // Controlador para actualizar el estado de un docente
 exports.updateTeacherStatus = (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
-  const queryUpdateStatus = "UPDATE users SET status = ? WHERE id = ?";
+  const queryUpdateStatus = "UPDATE usuario SET Estado = ? WHERE idUsuario = ?";
   connection.query(queryUpdateStatus, [status, id], (err, result) => {
     if (err) {
       console.error("Error al actualizar el estado del docente:", err);

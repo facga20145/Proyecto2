@@ -1,41 +1,120 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './ManageCourses.css';
 
 export default function ManageCourses() {
   const [courses, setCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Número de cursos por página
+  const itemsPerPage = 5;
 
-  // Simulamos la lista de docentes
-  const [teachers] = useState([
-    { id: 1, name: "Juan Pérez" },
-    { id: 2, name: "María Gómez" },
-    { id: 3, name: "Carlos Sánchez" }
-  ]);
-  const handleAddCourse = (e) => {
-    e.preventDefault();
-    const newCourse = {
-      name: e.target.name.value,
-      description: e.target.description.value,
-      category: e.target.category.value,
-      teacher: e.target.teacher.value,
-      age: e.target.age.value,
-      price: e.target.price.value,
-      videoLink: e.target.videoLink.value
-    };
-    setCourses([...courses, newCourse]);
-    e.target.reset();
+  const [categories, setCategories] = useState([]);
+  const [docentes, setDocentes] = useState([]);
+  const [previewUrl, setPreviewUrl] = useState(null); // Estado para la previsualización de la imagen
+
+  // Función para obtener cursos activos desde el backend
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/cursos');
+      if (!response.ok) {
+        throw new Error('Error al obtener cursos');
+      }
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
-  const handleEditCourse = (index) => {
-    alert(`Editar curso: ${courses[index].name}`);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/categorias');
+        if (!response.ok) {
+          throw new Error('Error al obtener categorías');
+        }
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    const fetchDocentes = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/docentes');
+        if (!response.ok) {
+          throw new Error('Error al obtener docentes');
+        }
+        const data = await response.json();
+        setDocentes(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchCategories();
+    fetchDocentes();
+    fetchCourses();
+  }, []);
+
+  const handleAddCourse = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/curso', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al crear el curso');
+      }
+
+      const result = await response.json();
+      console.log('Curso creado con éxito:', result);
+      e.target.reset();
+      setPreviewUrl(null); // Limpiar la previsualización de la imagen después de agregar el curso
+      fetchCourses();
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleDeleteCourse = async (idCurso) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/curso/${idCurso}`, {
+        method: 'PUT'
+      });
+      if (!response.ok) {
+        throw new Error('Error al eliminar el curso');
+      }
+      const result = await response.json();
+      console.log(result.message);
+
+      // Actualizar la lista de cursos después de eliminar (desactivar) uno
+      setCourses(prevCourses => prevCourses.filter(c => c.idCurso !== idCurso));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewUrl(null);
+    }
   };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Lógica para paginar los cursos
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentCourses = courses.slice(indexOfFirstItem, indexOfLastItem);
@@ -43,48 +122,70 @@ export default function ManageCourses() {
 
   return (
     <div className="manage-courses-container">
-      <form className="manage-courses-form" onSubmit={handleAddCourse}>
-        <h2>Gestión de Cursos</h2>
-        <label>Nombre del Curso:</label>
-        <input type="text" name="name" required />
+      <form className="manage-courses-form" onSubmit={handleAddCourse} encType="multipart/form-data">
+  <h2>Gestión de Cursos</h2>
 
-        <label>Descripción:</label>
-        <textarea name="description" rows="4" required></textarea>
+  <label>Nombre del Curso:</label>
+  <input type="text" name="name" required />
 
-        <label>Categoría:</label>
-        <select name="category" required>
-          <option value="Tecnología">Tecnología</option>
-          <option value="Idiomas">Idiomas</option>
-          <option value="Matemáticas">Matemáticas</option>
-        </select>
+  <label>Descripción:</label>
+  <textarea name="descripcion" rows="4" required></textarea>
 
-        <label>Docente:</label>
-        <select name="teacher" required>
-          {teachers.map((teacher) => (
-            <option key={teacher.id} value={teacher.name}>
-              {teacher.name}
-            </option>
-          ))}
-        </select>
+  <label>Categoría:</label>
+  <select name="category" required>
+    <option value="">Seleccione una categoría</option>
+    {categories.map((cat) => (
+      <option key={cat.idCategoria} value={cat.idCategoria}>
+        {cat.NombreCategoria}
+      </option>
+    ))}
+  </select>
 
-        <label>Edad del Curso:</label>
-        <select name="age" required>
-          <option value="Niños">Niños</option>
-          <option value="Adolescentes">Adolescentes</option>
-          <option value="Adultos">Adultos</option>
-        </select>
+  <label>Docente:</label>
+  <select name="teacher" required>
+    <option value="">Seleccione un docente</option>
+    {docentes.map((doc) => (
+      <option key={doc.idUsuario} value={doc.idUsuario}>
+        {doc.Nombre}
+      </option>
+    ))}
+  </select>
 
-        <label>Precio:</label>
-        <input type="number" name="price" required />
+  <label>Clasificación por Edad:</label>
+  <select name="ClasificacionEdad" required>
+    <option value="Niños">Niños</option>
+    <option value="Adolescentes">Adolescentes</option>
+    <option value="Adultos">Adultos</option>
+  </select>
 
-        <label>Duración:</label>
-        <input type="text" name="duration" required />
+  <label>Precio:</label>
+  <input type="number" name="price" required />
 
-        <label>Enlace del Video (YouTube):</label>
-        <input type="text" name="videoLink" required />
+  <label>Duración:</label>
+  <input type="text" name="duration" required />
 
-        <button type="submit">Agregar Curso</button>
-      </form>
+  <label>Enlace del Video (YouTube):</label>
+  <input type="text" name="videoLink" required />
+
+  <label>Imagen (PNG o JPG):</label>
+  {previewUrl && (
+    <img className="image-preview" src={previewUrl} alt="Preview" />
+  )}
+  <label className="custom-file-input">
+  Seleccionar Imagen
+  <input
+    type="file"
+    name="imagen"
+    accept="image/png, image/jpeg"
+    onChange={handleFileChange}
+    required
+  />
+</label>
+
+
+  <button type="submit">Agregar Curso</button>
+</form>
+
 
       <div className="courses-created">
         <h3 className='titulo'>Cursos Creados</h3>
@@ -96,32 +197,35 @@ export default function ManageCourses() {
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>Logo</th>
                   <th>Nombre</th>
-                  <th>Categoría</th>
-                  <th>Docente</th>
-                  <th>Edad</th>
                   <th>Precio</th>
-                  <th>Video</th>
-                  <th>Acciones</th>
+                  <th>Opción
+                    <button onClick={fetchCourses} className="refresh-button">
+                      ↻
+                    </button>
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {currentCourses.map((course, index) => (
                   <tr key={index}>
                     <td>{indexOfFirstItem + index + 1}</td>
-                    <td>{course.name}</td>
-                    <td>{course.category}</td>
-                    <td>{course.teacher}</td>
-                    <td>{course.age}</td>
-                    <td>${course.price}</td>
                     <td>
-                      <a href={course.videoLink} target="_blank" rel="noopener noreferrer">
-                        Ver video
-                      </a>
+                      <img
+                        src={`http://localhost/Pagina_Cursos_online/${course.imagen}`}
+                        alt={course.nombre_curso}
+                        style={{ width: '50px', height: '50px' }}
+                      />
                     </td>
+                    <td>{course.nombre_curso}</td>
+                    <td>S/ {course.precio}</td>
                     <td>
-                      <button onClick={() => handleEditCourse(index)} className="edit-btn">
-                        Editar
+                      <button
+                        onClick={() => handleDeleteCourse(course.idCurso)}
+                        style={{ backgroundColor: 'red', color: 'white' }}
+                      >
+                        X
                       </button>
                     </td>
                   </tr>
@@ -129,7 +233,6 @@ export default function ManageCourses() {
               </tbody>
             </table>
 
-            {/* Controles de paginación */}
             <div className="pagination">
               {Array.from({ length: totalPages }, (_, i) => (
                 <button

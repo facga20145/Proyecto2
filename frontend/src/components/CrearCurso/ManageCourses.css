@@ -1,37 +1,38 @@
 .manage-courses-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
   padding: 20px;
-  min-height: 100vh; /* Para que ocupe toda la altura de la pantalla */
+  min-height: 100vh;
+  background-color: #f8f9fa; /* Fondo gris claro */
 }
 
 .manage-courses-form {
-  width: 60%;
-  max-width: 600px; /* Ancho máximo para que no sea demasiado ancho */
-  background-color: #fff;
+  width: 100%; /* Usar todo el ancho del contenedor */
+  max-width: 800px;
+  background-color: #ffffff;
   border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* Estructura vertical */
+  gap: 20px; /* Espacio entre campos */
 }
 
 .manage-courses-form h2 {
-  text-align: center;
+  text-align: left;
+  font-size: 24px;
   margin-bottom: 20px;
+  color: #343a40;
 }
 
 .manage-courses-form label {
-  display: block;
+  font-size: 16px;
+  color: #495057;
   margin-bottom: 5px;
-  width: 100%; /* Para que las etiquetas ocupen todo el ancho */
-  color: #333;
+  text-align: left;
 }
 
 .manage-courses-form input[type="text"],
@@ -39,19 +40,23 @@
 .manage-courses-form input[type="number"],
 .manage-courses-form select,
 .manage-courses-form textarea {
-  width: 100%;
+  width: 100%; /* Input ocupa todo el ancho disponible */
   padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid #ced4da;
   border-radius: 5px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #f8f9fa;
+  color: #495057;
+  font-size: 14px;
+}
+
+.manage-courses-form textarea {
+  resize: vertical;
 }
 
 .manage-courses-form button {
-  width: 100%;
+  width: 100%; /* Botón ocupa todo el ancho */
   padding: 15px;
-  background-color: #218838;
+  background-color: #007bff;
   color: white;
   font-size: 18px;
   border: none;
@@ -61,100 +66,130 @@
 }
 
 .manage-courses-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Previsualización de la imagen */
+.image-preview {
+  display: block;
+  margin: 0 auto; /* Centrar horizontalmente */
+  width: 100px; /* Tamaño actual */
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.custom-file-input {
+  display: inline-block;
+  background-color: #218838; /* Color verde del botón */
+  color: #ffffff !important; /* Forzamos el color blanco */
+  padding: 10px 20px; /* Tamaño del botón */
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 16px; /* Letra más grande */
+  font-weight: bold; /* Letra en negrita */
+  margin: 10px auto; /* Centrar el botón */
+  width: auto; /* Ajuste dinámico según el texto */
+}
+
+.custom-file-input:hover {
   background-color: #1c742f;
 }
 
+.custom-file-input input[type="file"] {
+  display: none; /* Oculta el input real */
+}
+
+
+/* Tabla de cursos */
 .courses-created {
-  width: 60%;
-  max-width: 600px; /* Ancho máximo para la tabla */
-  background-color: white;
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.course-item {
-  margin-bottom: 20px;
+.courses-created table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.course-info h4 {
-  font-size: 18px;
-  margin-bottom: 5px;
-}
-
-.course-info p {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #555;
-}
-
-.edit-btn {
-  padding: 8px 15px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.edit-btn:hover {
-  background-color: #218838;
-}
-
-.pagination {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.pagination button {
+.courses-created th,
+.courses-created td {
   padding: 10px;
-  margin: 0 5px;
-  border: none;
-  background-color: #f1f1f1;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  border: 1px solid #dee2e6;
+  text-align: left;
 }
 
-.pagination button:hover {
-  background-color: #ddd;
-}
-
-.pagination button.active {
-  background-color: #218838;
+.courses-created thead th {
+  background-color: #007bff;
   color: white;
+  font-weight: bold;
+  position: relative;
 }
 
-/* Estilos responsivos */
+.courses-created tbody tr:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+
+.courses-created tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+/* Botón refresh */
+.refresh-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.8); /* Blanco con transparencia */
+  border: 1px solid #ccc; /* Borde tenue */
+  border-radius: 50%;
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.refresh-button:hover {
+  background: rgba(255, 255, 255, 1); /* Blanco sólido al pasar el cursor */
+  transform: scale(1.1); /* Efecto de agrandamiento */
+}
+
+/* Responsivo */
 @media (max-width: 768px) {
   .manage-courses-form {
-    width: 90%; /* Ajustar el ancho del formulario en pantallas más pequeñas */
+    grid-template-columns: 1fr; /* Etiqueta y campo apilados */
+    gap: 15px;
   }
 
-  .courses-created {
-    width: 90%; /* Ajustar el ancho de la tabla en pantallas más pequeñas */
+  .manage-courses-form label {
+    text-align: left;
   }
 
   .manage-courses-form button {
-    font-size: 16px; /* Ajustar el tamaño de la fuente */
+    font-size: 16px;
+  }
+
+  .courses-created table {
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
   .manage-courses-form {
-    padding: 15px; /* Reducir el padding en pantallas muy pequeñas */
-  }
-
-  .courses-created {
-    padding: 15px; /* Ajustar el padding en pantallas muy pequeñas */
+    padding: 20px; /* Reducir padding */
   }
 
   .manage-courses-form button {
-    padding: 10px; /* Reducir el tamaño del botón */
-    font-size: 14px; /* Reducir el tamaño de la fuente */
+    font-size: 14px; /* Reducir tamaño del botón */
   }
 
-  .pagination button {
-    padding: 8px 10px; /* Ajustar el tamaño de los botones de paginación */
+  .courses-created table th,
+  .courses-created table td {
+    padding: 8px;
   }
 }

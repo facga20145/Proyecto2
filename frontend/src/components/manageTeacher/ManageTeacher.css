@@ -250,3 +250,19 @@
     padding: 8px 10px; /* Ajustar el tamaño de los botones de paginación */
   }
 }
+
+.edit-btn.active {
+  background-color: #28a745; /* Verde para "activo" */
+}
+
+.edit-btn.active:hover {
+  background-color: #218838; /* Verde oscuro al pasar el mouse */
+}
+
+.edit-btn.inactive {
+  background-color: #dc3545; /* Rojo para "inactivo" */
+}
+
+.edit-btn.inactive:hover {
+  background-color: #c82333; /* Rojo oscuro al pasar el mouse */
+}

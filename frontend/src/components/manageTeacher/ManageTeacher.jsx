@@ -16,8 +16,15 @@ export default function ManageTeacher() {
   const fetchTeachers = async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/teachers/list");
-      console.log(response.data); // Verifica aquí los datos que recibes
-      setTeacher(response.data);
+      const data = response.data.map((teacher) => ({
+        id: teacher.idUsuario,
+        nombre: teacher.Nombre,
+        apellido: teacher.Apellido,
+        email: teacher.Correo,
+        contrasena: teacher.Contrasena,
+        status: teacher.Estado === 1 ? "activo" : "inactivo", // Interpretar 1 como activo y 0 como inactivo
+      }));
+      setTeacher(data);
     } catch (error) {
       console.error("Error al obtener la lista de docentes:", error);
     }
@@ -36,13 +43,9 @@ export default function ManageTeacher() {
     };
     console.log(newTeacher);
     try {
-      const response = await axios.post("http://localhost:5000/api/teachers/add", newTeacher);
+      await axios.post("http://localhost:5000/api/teachers/add", newTeacher);
       alert("Docente agregado correctamente");
-
-      // Llamamos a fetchTeachers para actualizar la lista después de agregar
-      fetchTeachers();
-
-      // Opcional: cerrar el formulario de agregar después de que se agregue el docente
+      fetchTeachers(); // Actualizar la lista después de agregar
       setShowAddForm(false);
     } catch (error) {
       console.error("Error al agregar el docente:", error.response || error);
@@ -58,13 +61,14 @@ export default function ManageTeacher() {
     setSearchTerm(e.target.value);
   };
 
-  const handleEditTeacher = async (teacherId, newStatus) => {
+  const handleEditTeacher = async (teacherId, currentStatus) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/teachers/update/${teacherId}`, {
+      const newStatus = currentStatus === "activo" ? 0 : 1; // Cambiar el estado
+      await axios.put(`http://localhost:5000/api/teachers/update/${teacherId}`, {
         status: newStatus,
       });
       alert("Estado del docente actualizado correctamente");
-      fetchTeachers(); // Actualizamos la lista después de cambiar el estado del docente
+      fetchTeachers(); // Refrescar la lista de docentes
     } catch (error) {
       console.error("Error al actualizar el estado del docente:", error);
       alert("Hubo un error al actualizar el estado del docente");
@@ -174,23 +178,19 @@ export default function ManageTeacher() {
                     <td className="col-correo">{teacher.email}</td>
                     <td className="col-hashed-password">{teacher.contrasena}</td>
                     <td className="col-estado">
-                      <span className={`status ${teacher.status ? teacher.status.toLowerCase() : "unknown"}`}>
-                        {teacher.status ? teacher.status : "Unknown"}
+                      <span className={`status ${teacher.status}`}>
+                        {teacher.status}
                       </span>
                     </td>
                     <td className="col-acciones">
-                      <button
-                        className="edit-btn"
-                        onClick={() =>
-                          handleEditTeacher(
-                            teacher.id,
-                            teacher.status === "activo" ? "inactivo" : "activo"
-                          )
-                        }
-                      >
-                        {teacher.status === "activo" ? "Deshabilitar" : "Habilitar"}
-                      </button>
-                    </td>
+  <button
+    className={`edit-btn ${teacher.status === "activo" ? "active" : "inactive"}`}
+    onClick={() => handleEditTeacher(teacher.id, teacher.status)}
+  >
+    {teacher.status === "activo" ? "Deshabilitar" : "Habilitar"}
+  </button>
+</td>
+
                   </tr>
                 ))}
               </tbody>

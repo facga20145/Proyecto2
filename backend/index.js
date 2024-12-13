@@ -3,7 +3,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connection = require("../backend/config/db.js"); // Importar la conexión a la BD
 const authRoutes = require("../backend/routes/authRoutes.js");
-const teacherRoutes = require("./routes/Docentes/teacherRoutes.js")
+const teacherRoutes = require("./routes/Docentes/teacherRoutes.js");
+const courseRoutes = require("./routes/courseRoutes.js");
+const adminRoutes = require("./routes/Admin/adminRoutes.js");
 
 dotenv.config();
 
@@ -19,9 +21,17 @@ app.get("/", (req, res) => {
   res.send("¡Servidor funcionando correctamente!");
 });
 
-// Importar y usar las rutas de autenticación
+// Rutas de autenticación
 app.use("/api/auth", authRoutes);
+
+// Rutas de docentes
 app.use("/api/teachers", teacherRoutes);
+
+// Rutas de cursos
+app.use("/api", courseRoutes);
+
+app.use("/api/admins", adminRoutes);
+
 
 // Iniciar el servidor
 app.listen(PORT, () => {
